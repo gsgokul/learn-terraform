@@ -2,13 +2,17 @@
 * Provider block defines which provider they require
 */
 
-provider "azurerm" {
-  version = "= 2.46"
-  features {}
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=2.46.0"
+    }
+  }
 }
 
-terraform {
-  backend "azurerm" {}
+provider "azurerm" {
+  features {}
 }
 
 /*
@@ -48,7 +52,7 @@ resource "azurerm_app_service" "this" {
   }
 
   app_settings = {
-    "APPINSIGHTS_INSTRUMENTATIONKEY"      = "${azurerm_application_insights.this.instrumentation_key}"
+    "APPINSIGHTS_INSTRUMENTATIONKEY"      = "azurerm_application_insights.this.instrumentation_key"
     "APPINSIGHTS_PORTALINFO"              = "ASP.NET"
     "APPINSIGHTS_PROFILERFEATURE_VERSION" = "1.0.0"
     "WEBSITE_HTTPLOGGING_RETENTION_DAYS"  = "35"

@@ -1,5 +1,5 @@
 resource_group_name                       = "rg-terraform-pr"
 location                                  = "East US"
-app_service_plan_name_backend             = "azapp-terraform-pr"
-app_service_name_backend                  = "azapp-terraform-pr"
+app_service_plan_name                     = "azapp-terraform-pr"
+app_service_name                          = "azapp-terraform-pr"
 application_insights_name                 = "azapp-terraform-pr"
