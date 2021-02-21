@@ -31,11 +31,11 @@ jobs:
       name: "Azure Pipelines"
       vmImage: "windows-latest"
     steps:
-      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
-        displayName: "Install Terraform 0.12.12"
+      - task: TerraformInstaller@0
+        displayName: "Install Terraform"
         inputs:
           terraformVersion: 0.14.7
-      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+      - task: TerraformCLI@0
         displayName: "Terraform init"
         inputs:
           workingDirectory: "$(Build.SourcesDirectory)"
@@ -44,7 +44,7 @@ jobs:
           backendAzureRmStorageAccountName: ${{parameters.tfStateStName}}
           backendAzureRmContainerName: ${{parameters.tfStateCtrName}}
           backendAzureRmKey: "terraform-${{lower(parameters.environment)}}.tfstate"
-      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+      - task: TerraformCLI@0
         displayName: "Terraform apply"
         inputs:
           command: apply
