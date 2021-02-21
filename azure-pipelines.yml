@@ -1,0 +1,53 @@
+# Set how the build pipeline triggers
+trigger:
+  branches:
+    include:
+      - develop
+      - master
+
+# Just say its gonna trigger on pull requests too
+pr:
+  branches:
+    include:
+      - develop
+      - master
+
+variables:
+  # Name of the pipeline. Defaults to the AzureDevOps project name but it can be changed.
+  - name: pipelineName
+    value: TerraformDemo
+  # Name of the resource group where the state file lies
+  - name: tfStateRgName
+    value: rg-terraform-demo
+  # Name of the storage account for the state file
+  - name: tfStateStName
+    value: saterraformdemo
+  # Name of the container for the state file
+  - name: tfStateCtrName
+    value: terraform
+
+stages:
+  - stage: DeployDev
+    displayName: Deploy Dev
+    jobs:
+      - template: azure-pipelines-deployment-template.yml
+        parameters:
+          environment: "Dev"
+          pipelineName: ${{variables.pipelineName}}
+          backendServiceName: AzureDev
+          tfStateRgName: ${{variables.tfStateRgName}}
+          tfStateStName: ${{variables.tfStateStName}}
+          tfStateCtrName: ${{variables.tfStateCtrName}}
+
+  - stage: DeployProd
+    displayName: Deploy Prod
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - template: azure-pipelines-deployment-template.yml
+        parameters:
+          environment: "Prod"
+          pipelineName: "${{variables.pipelineName}}"
+          backendServiceName: AzureProd
+          tfStateRgName: "${{variables.tfStateRgName}}"
+          tfStateStName: "${{variables.tfStateStName}}"
+          tfStateCtrName: "${{variables.tfStateCtrName}}"

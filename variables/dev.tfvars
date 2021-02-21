@@ -1,0 +1,5 @@
+resource_group_name                       = "rg-terraform-dv"
+location                                  = "East US"
+app_service_plan_name_backend             = "azapp-terraform-dv"
+app_service_name_backend                  = "azapp-terraform-dv"
+application_insights_name                 = "azapp-terraform-dv"
