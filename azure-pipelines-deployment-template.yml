@@ -38,6 +38,7 @@ jobs:
       - task: TerraformCLI@0
         displayName: "Terraform init"
         inputs:
+          backend: "false"
           workingDirectory: "$(Build.SourcesDirectory)"
           backendServiceArm: ${{parameters.backendServiceName}}
           backendAzureRmResourceGroupName: ${{parameters.tfStateRgName}}
