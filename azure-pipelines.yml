@@ -36,7 +36,7 @@ stages:
         parameters:
           environment: "Dev"
           pipelineName: ${{variables.pipelineName}}
-          backendServiceName: ${{varianles.backendServiceName}}
+          backendServiceName: ${{variables.backendServiceName}}
           tfStateRgName: ${{variables.tfStateRgName}}
           tfStateStName: ${{variables.tfStateStName}}
           tfStateCtrName: ${{variables.tfStateCtrName}}
