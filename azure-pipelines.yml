@@ -25,6 +25,8 @@ variables:
   # Name of the container for the state file
   - name: tfStateCtrName
     value: terraform
+  - name: backendServiceName
+    value: free_trialaccount_service
 
 stages:
   - stage: DeployDev
@@ -34,7 +36,7 @@ stages:
         parameters:
           environment: "Dev"
           pipelineName: ${{variables.pipelineName}}
-          backendServiceName: AzureDev
+          backendServiceName: ${{varianles.backendServiceName}}
           tfStateRgName: ${{variables.tfStateRgName}}
           tfStateStName: ${{variables.tfStateStName}}
           tfStateCtrName: ${{variables.tfStateCtrName}}
